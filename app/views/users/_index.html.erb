@@ -11,6 +11,21 @@
       <tr>
         <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
         <td><%= user.name %></td>
+        <td>
+          <% if user.favorited_by?(current_user) %>
+            <p>
+              <%= link_to relationships_create_path(user), method: :delete do %>
+                ♥<%= user.favorites.count %>
+              <% end %>
+            </p>
+            <% else %>
+            <p>
+              <%= link_to relationships_destroy_path(book), method: :post do %>
+                ♡<%= user.favorites.count %>
+              <% end %>
+            </p>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', user %></td>
       </tr>
     <% end %>
